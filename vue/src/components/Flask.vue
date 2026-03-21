@@ -1,7 +1,7 @@
 <template>
   <div
     class="flask-container"
-    @click="onFlaskClick"
+    @click="() => onFlaskClick()"
   >
     <div
       class="flask"
@@ -16,30 +16,32 @@
   </div>
 </template>
 
-<script setup>
-const props = defineProps({
-  layers: {
-    type: Array,
-    default: () => []
+<script>
+export default {
+  name: 'Flask',
+  props: {
+    layers: {
+      type: Array,
+      default: () => []
+    },
+    isSelected: {
+      type: Boolean,
+      default: false
+    },
+    isFreezed: {
+      type: Boolean,
+      default: false
+    },
+    flaskIndex: {
+      type: Number,
+      required: true
+    }
   },
-  isSelected: {
-    type: Boolean,
-    default: false
-  },
-  isFreezed: {
-    type: Boolean,
-    default: false
-  },
-  flaskIndex: {
-    type: Number,
-    required: true
+  methods: {
+    onFlaskClick() {
+      this.$emit('flask-click', this.flaskIndex)
+    }
   }
-})
-
-const emit = defineEmits(['flask-click'])
-
-const onFlaskClick = () => {
-  emit('flask-click', props.flaskIndex)
 }
 </script>
 
@@ -47,12 +49,16 @@ const onFlaskClick = () => {
 $border-color: #f0f0f0;
 $selected-color: gold;
 $backcolor: #333;
-$freezed-bordercolor: #575757;
 $freezed-backcolor: #000000;
 
 .flask-container {
   display: inline-block;
   margin: 10px;
+  cursor: pointer;
+
+  @media (max-width: 768px) {
+    margin: 5px;
+  }
 }
 
 .flask {
@@ -66,21 +72,36 @@ $freezed-backcolor: #000000;
   overflow: hidden;
   display: flex;
   flex-direction: column-reverse;
+  transition: all 0.2s ease;
+
+  @media (max-width: 768px) {
+    width: 60px;
+    height: 150px;
+    border-width: 2px;
+  }
+
+  @media (max-width: 480px) {
+    width: 50px;
+    height: 125px;
+  }
+
+  &.selected {
+    border-color: $selected-color;
+    box-shadow: 0 0 10px $selected-color;
+    transform: scale(1.02);
+  }
+
+  &.freezed {
+    filter: brightness(0.4);
+  }
 }
 
 .liquid {
   width: 100%;
   transition: height 0.2s ease;
-}
 
-.flask.selected {
-  border-color: $selected-color;
-  box-shadow: 0 0 10px $selected-color;
-  transform: scale(1.02);
-  transition: all 0.2s ease;
-}
-
-.flask.freezed {
-  filter: brightness(0.4);
+  @media (max-width: 768px) {
+    transition: height 0.15s ease;
+  }
 }
 </style>
