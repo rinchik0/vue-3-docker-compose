@@ -184,7 +184,7 @@ export default createStore({
   }
 })
 
-function fillRandomFlask(flask, mapColors, mapCounts, state, curPercent) {
+const fillRandomFlask = (flask, mapColors, mapCounts, state, curPercent) => {
   const layers = []
   let fullness = 0
   while (fullness < state.layersPerFlask) {
@@ -214,7 +214,7 @@ function fillRandomFlask(flask, mapColors, mapCounts, state, curPercent) {
   flask.layers = layers
 }
 
-function lastFluskLayers(mapColors, mapCounts, curPercent) {
+const lastFluskLayers = (mapColors, mapCounts, curPercent) => {
   const layers = []
   for (let i = 0; i < mapColors.length; i++) {
     layers.push({
@@ -235,7 +235,7 @@ function lastFluskLayers(mapColors, mapCounts, curPercent) {
   return layers
 }
 
-function generateRandomFlasks(state, curPercent) {
+const generateRandomFlasks = (state, curPercent) => {
   let fullFlasks = state.flaskCount <= 5 ? state.flaskCount - 1 :
     (state.flaskCount <= 11 ? state.flaskCount - 2 : state.flaskCount - 3)
 
