@@ -1,13 +1,13 @@
 <template>
-  <div class="controls">
+  <div class="records">
     <h1>Рекорды</h1>
     <div
         v-for="(time, index) in recs"
         :key="index"
-        class="control-row"
+        class="records__row"
     >
       {{ index + 1 }}
-      <span class="record-time">{{ formatTime(time) }}</span>
+      <span class="records__time">{{ formatTime(time) }}</span>
     </div>
   </div>
   <RouterLink :to="{ name: $routes.INDEX }">Назад</RouterLink>
@@ -34,9 +34,8 @@ export default {
 <style lang="scss" scoped>
 $main-color: gold;
 $border-color: #ccc;
-$text-secondary: #888;
 
-.controls {
+.records {
   text-align: center;
   padding: 20px;
   gap: 15px;
@@ -53,48 +52,48 @@ $text-secondary: #888;
   @media (max-width: 480px) {
     padding: 10px;
   }
-}
 
-.control-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  width: 400px;
-  padding: 8px 16px;
-  border-bottom: 1px solid $border-color;
-  transition: all 0.2s ease;
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 400px;
+    padding: 8px 16px;
+    border-bottom: 1px solid $border-color;
+    transition: all 0.2s ease;
 
-  &:hover {
-    background-color: rgba($main-color, 0.1);
-    transform: translateX(5px);
+    &:hover {
+      background-color: rgba($main-color, 0.1);
+      transform: translateX(5px);
+    }
+
+    @media (max-width: 768px) {
+      width: 300px;
+      gap: 15px;
+      padding: 6px 12px;
+    }
+
+    @media (max-width: 480px) {
+      width: 250px;
+      gap: 10px;
+      padding: 4px 8px;
+    }
   }
 
-  @media (max-width: 768px) {
-    width: 300px;
-    gap: 15px;
-    padding: 6px 12px;
-  }
+  &__time {
+    font-size: 18px;
+    font-weight: bold;
+    color: $main-color;
+    font-family: monospace;
 
-  @media (max-width: 480px) {
-    width: 250px;
-    gap: 10px;
-    padding: 4px 8px;
-  }
-}
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
 
-.record-time {
-  font-size: 18px;
-  font-weight: bold;
-  color: $main-color;
-  font-family: monospace;
-
-  @media (max-width: 768px) {
-    font-size: 16px;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 14px;
+    @media (max-width: 480px) {
+      font-size: 14px;
+    }
   }
 }
 </style>
