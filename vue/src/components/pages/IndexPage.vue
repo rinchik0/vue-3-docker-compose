@@ -37,6 +37,7 @@
 <script>
 import Flask from '@/components/Flask.vue'
 import Timer from '@/components/Timer.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'IndexPage',
@@ -45,27 +46,15 @@ export default {
     Timer
   },
   computed: {
-    winCount() {
-      return this.$store.getters.getWinCount
-    },
-    isHardMode() {
-      return this.$store.getters.getHardMode
-    },
-    selectedFlaskIndex() {
-      return this.$store.getters.getSelectedFlask
-    },
-    flasks() {
-      return this.$store.getters.getFlasks
-    },
-    showWinMessage() {
-      return this.$store.getters.getShowWinMessage
-    },
-    blockedFlaskIndex() {
-      return this.$store.getters.getBlockedFlask
-    },
-    winResult() {
-      return this.$store.getters.getWinResult
-    }
+    ...mapGetters({
+      winCount: 'getWinCount',
+      isHardMode: 'getHardMode',
+      selectedFlaskIndex: 'getSelectedFlask',
+      flasks: 'getFlasks',
+      showWinMessage: 'getShowWinMessage',
+      blockedFlaskIndex: 'getBlockedFlask',
+      winResult: 'getWinResult'
+    })
   },
   mounted() {
     this.$refs.timer.reset()
